@@ -1,0 +1,1 @@
+[09-Nov-2020 12:32:50 UTC] PHP Fatal error:  Trait 'Illuminate\Database\Eloquent\Factories\HasFactory' not found in /home/ngtdevxy/happio.ngtdev.xyz/app/Models/User.php on line 12
