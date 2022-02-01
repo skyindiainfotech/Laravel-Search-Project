@@ -208,7 +208,5 @@
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->
-	<!--end::Body-->
-	<!--end::Body-->
-	<!--end::Body-->
+	<!--end::Body---->
 @endsection

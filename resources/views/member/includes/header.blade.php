@@ -43,6 +43,7 @@
 										</div>
 										<!--end::Menu-->
 									</div>
+									
 									<!--end::Menu wrapper-->
 								</div>
 								<!--end::Navbar-->
