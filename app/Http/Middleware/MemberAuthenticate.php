@@ -38,7 +38,7 @@ class MemberAuthenticate
     {
         $guard = "members";
 
-
+       
         if (!Auth::guard($guard)->check()) 
         {
             if ($request->ajax()) 
@@ -47,26 +47,16 @@ class MemberAuthenticate
             } 
             else 
             {
-                return redirect()->guest('login');
+                // check user permission
+                $user = Auth::guard($guard)->user();
+                if($user->status == 1){
+                    Auth::guard($guard)->logout();
+                    return redirect(url('/login'));
+                }
             }
         }
 
-        // check user permission
-
-        $user = Auth::guard($guard)->user();
-
-
-        $is_member = Session::get('is_member');
         
-        if ($is_member == 1) {
-            
-        }else{
-
-            if($user->status == '0'){
-
-                return redirect('/');
-            }
-        }
 
         return $next($request);
     }

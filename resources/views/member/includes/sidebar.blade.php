@@ -4,7 +4,7 @@
     <div class="aside-logo flex-column-auto" id="kt_aside_logo">
         <!--begin::Logo-->
         <a href="index.html">
-            <img alt="Logo" src="{{ asset('/themes/') }}/admin/media/logos/logo-1.svg" class="h-15px logo" />
+            <img alt="Logo" src="{{ asset('/themes/') }}/member/media/logos/logo-1.svg" class="h-15px logo" />
         </a>
         <!--end::Logo-->
         <!--begin::Aside toggler-->
@@ -42,7 +42,7 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Dashboard</span>
+                        <span class="menu-title">Member Dashboard</span>
                     </a>
                 </div>
             </div>

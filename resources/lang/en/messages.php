@@ -16,7 +16,10 @@ return [
     "please_wait" => "Please wait",
     "member_login" => "Member Login",
     "home" => "Home",
-    
+    "forgot_password" => "Forgot Password",
+    "submit" => "Submit",
+    "cancel" => "Cancel",
+    "back" => "Back",
 
 ];
 ?>

@@ -15,6 +15,8 @@
 		<!--begin::Global Stylesheets Bundle(used by all pages)-->
 		<link href="{{ asset('/themes/') }}/admin/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('/themes/') }}/admin/css/style.bundle.css" rel="stylesheet" type="text/css" />
+        
+
 		<!--end::Global Stylesheets Bundle-->
 	</head>
 	<!--end::Head-->

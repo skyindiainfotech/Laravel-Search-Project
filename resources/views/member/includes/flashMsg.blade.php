@@ -1,21 +1,34 @@
-@if(Session::has('success_message'))
-<div class='container'>
-    <div class='row'>
-        <div class="clearfix">&nbsp;</div>
-        <div class='alert alert-success msg-box-hide'>
-			{!! Session::get('success_message') !!}
-        </div>        
-    </div>
-</div>    
+@if(Session::has('success'))
+<script  type="text/javascript">
+$(document).ready(function () {
+    $msg = "{{ Session::get('success') }}";
+    popMessage('success',$msg);
+});  
+</script>    
 @endif
 
-@if(Session::has('error_message'))
-<div class='container'>
-    <div class='row'>
-    <div class="clearfix">&nbsp;</div>    
-    <div class='alert alert-danger msg-box-hide'>
-		{!! Session::get('error_message') !!}
-    </div>
-    </div>
-</div>    
+@if(Session::has('error'))  
+<script  type="text/javascript">
+$(document).ready(function () {
+    $msg = "{{ Session::get('error') }}";
+    popMessage('error',$msg);
+}); 
+</script>
+@endif
+
+
+@if ($errors->any())
+
+@php($error_str = '')
+@foreach ($errors->all() as $error)
+    @php($error_str .= $error)
+@endforeach
+
+<script  type="text/javascript">
+$(document).ready(function () {
+    $msg = "Whoops!"+" There were some problems with your input.";
+    $msg += "{{ $error_str }}";
+    popMessage('error',$msg);
+}); 
+</script>
 @endif

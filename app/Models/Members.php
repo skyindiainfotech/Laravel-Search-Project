@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Carbon\Carbon;
 
-class Members extends Model
+class Members extends Authenticatable
 {
 
 	use Sluggable;
@@ -21,12 +22,12 @@ class Members extends Model
 	
     protected $fillable = [
 		'email',
-		'username',
 		'first_name',
 		'last_name',
 		'email',
 		'password',
-		'token_key',  
+		'token_key',
+		'otp', 
 		'status', 
     ];
 	

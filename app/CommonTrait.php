@@ -74,6 +74,24 @@ trait CommonTrait{
 	}
 
 
+    /**
+     * Generate the random string
+     * @param  $length
+     * @param  $type - 'str' for any string, 'int' for digits.
+     * @return $Response
+    */
+    public static function randomString($length = 40,$type = 'str') {
+        
+        $characters = $type == 'int' ? '0123456789' : '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+=';
+        $randomString = '';
+      
+        for ($i = 0; $i < $length; $i++) {
+            $index = rand(0, strlen($characters) - 1);
+            $randomString .= $characters[$index];
+        }
+      
+        return $randomString;
+    }
 
 }	
 

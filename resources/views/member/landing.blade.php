@@ -9,7 +9,7 @@
 			<!--begin::Header Section-->
 			<div class="mb-0" id="home">
 				<!--begin::Wrapper-->
-				<div class="bgi-no-repeat bgi-size-contain bgi-position-x-center bgi-position-y-bottom landing-dark-bg" style="background-image: url({{ asset('/themes/') }}/member//media/svg/illustrations/landing.svg)">
+				<div class="bgi-no-repeat bgi-size-contain bgi-position-x-center bgi-position-y-bottom landing-dark-bg" style="background-image: url({{ asset('/themes/') }}/member/media/svg/illustrations/landing.svg)">
 					<!--begin::Header-->
 					<div class="landing-header" data-kt-sticky="true" data-kt-sticky-name="landing-header" data-kt-sticky-offset="{default: '200px', lg: '300px'}">
 						<!--begin::Container-->
@@ -35,8 +35,8 @@
 									<!--end::Mobile menu toggle-->
 									<!--begin::Logo image-->
 									<a href="landing.html">
-										<img alt="Logo" src="{{ asset('/themes/') }}/member//media/logos/logo-landing.svg" class="logo-default h-25px h-lg-30px" />
-										<img alt="Logo" src="{{ asset('/themes/') }}/member//media/logos/logo-landing-dark.svg" class="logo-sticky h-20px h-lg-25px" />
+										<img alt="Logo" src="{{ asset('/themes/') }}/member/media/logos/logo-landing.svg" class="logo-default h-25px h-lg-30px" />
+										<img alt="Logo" src="{{ asset('/themes/') }}/member/media/logos/logo-landing-dark.svg" class="logo-sticky h-20px h-lg-25px" />
 									</a>
 									<!--end::Logo image-->
 								</div>
@@ -146,7 +146,7 @@
 							<div class="d-flex align-items-center order-2 order-md-1">
 								<!--begin::Logo-->
 								<a href="landing.html">
-									<img alt="Logo" src="{{ asset('/themes/') }}/member//media/logos/logo-landing.svg" class="h-15px h-md-20px" />
+									<img alt="Logo" src="{{ asset('/themes/') }}/member/media/logos/logo-landing.svg" class="h-15px h-md-20px" />
 								</a>
 								<!--end::Logo image-->
 								<!--begin::Logo image-->
@@ -194,16 +194,16 @@
 		<!--end::Main-->
 		<!--begin::Javascript-->
 		<!--begin::Global Javascript Bundle(used by all pages)-->
-		<script src="{{ asset('/themes/') }}/member//plugins/global/plugins.bundle.js"></script>
-		<script src="{{ asset('/themes/') }}/member//js/scripts.bundle.js"></script>
+		<script src="{{ asset('/themes/') }}/member/plugins/global/plugins.bundle.js"></script>
+		<script src="{{ asset('/themes/') }}/member/js/scripts.bundle.js"></script>
 		<!--end::Global Javascript Bundle-->
 		<!--begin::Page Vendors Javascript(used by this page)-->
-		<script src="{{ asset('/themes/') }}/member//plugins/custom/fslightbox/fslightbox.bundle.js"></script>
-		<script src="{{ asset('/themes/') }}/member//plugins/custom/typedjs/typedjs.bundle.js"></script>
+		<script src="{{ asset('/themes/') }}/member/plugins/custom/fslightbox/fslightbox.bundle.js"></script>
+		<script src="{{ asset('/themes/') }}/member/plugins/custom/typedjs/typedjs.bundle.js"></script>
 		<!--end::Page Vendors Javascript-->
 		<!--begin::Page Custom Javascript(used by this page)-->
-		<script src="{{ asset('/themes/') }}/member//js/custom/landing.js"></script>
-		<script src="{{ asset('/themes/') }}/member//js/custom/pages/company/pricing.js"></script>
+		<script src="{{ asset('/themes/') }}/member/js/custom/landing.js"></script>
+		<script src="{{ asset('/themes/') }}/member/js/custom/pages/company/pricing.js"></script>
 		<!--end::Page Custom Javascript-->
 		<!--end::Javascript-->
 	</body>

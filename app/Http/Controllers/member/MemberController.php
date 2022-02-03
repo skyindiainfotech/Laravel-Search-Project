@@ -31,20 +31,8 @@ class MemberController extends Controller
 
         $data = array(); 
         $data['pageTitle'] =  __('home');
-        return view('member.landing',$data);
+        return view('member.dashboard',$data);
     }
 
     
-    /**
-     * Get Login Page Function
-     * @param  void
-     * @return $data
-    */
-    public function login(){
-
-        $data = array(); 
-        $data['pageTitle'] = __('member_login');
-        return view('member.beforelogin.login',$data);
-    }
-   
 }

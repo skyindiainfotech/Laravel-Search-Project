@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 <?php $action_url = route('login-process'); ?>
 @section('content_login')
-
+@include('admin.includes.flashMsg')
 <div class="d-flex flex-column flex-root">
 			<!--begin::Authentication - Sign-in -->
 			<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url({{ asset('/themes/') }}/admin/media/illustrations/progress-hd.png)">
@@ -17,6 +17,7 @@
 					<div class="w-lg-500px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">
 						<!--begin::Form-->
 						{!! Form::open(['url' => $action_url, 'class' => 'form w-100', 'id' => 'kt_sign_in_form']) !!}
+							
 							<!--begin::Heading-->
 							<div class="text-center mb-10">
 								<!--begin::Title-->

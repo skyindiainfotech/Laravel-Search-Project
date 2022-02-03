@@ -19,13 +19,15 @@ License: For each use you must have a valid license purchased only from above li
 		<meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular 11, VueJs, React, Laravel, admin themes, web design, figma, web development, ree admin themes, bootstrap admin, bootstrap dashboard" />
 		<link rel="canonical" href="Https://preview.keenthemes.com/metronic8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="shortcut icon" href="{{ asset('/themes/') }}/admin/media/logos/favicon.ico" />
+		<link rel="shortcut icon" href="{{ asset('/themes/') }}/member/media/logos/favicon.ico" />
 		<!--begin::Fonts-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
 		<!--end::Fonts-->
 		<!--begin::Global Stylesheets Bundle(used by all pages)-->
-		<link href="{{ asset('/themes/') }}/admin/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('/themes/') }}/admin/css/style.bundle.css" rel="stylesheet" type="text/css" />
+        
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+		<link href="{{ asset('/themes/') }}/member/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('/themes/') }}/member/css/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
 	</head>
 	<!--end::Head-->
@@ -42,27 +44,27 @@ License: For each use you must have a valid license purchased only from above li
 
         @endif
 
-
-        @if(Auth::guard('members')->check())
+        
+        @if(Auth::guard('members')->user())
 		<!--begin::Main-->
 		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Page-->
 			<div class="page d-flex flex-row flex-column-fluid">
-                @include('admin.includes.sidebar')
+                @include('member.includes.sidebar')
 
                 <!--begin::Wrapper-->
 				<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
                     <!--begin::Header-->
-                    @include('admin.includes.header')
+                    @include('member.includes.header')
                     <!--end::Header-->
 
                     <!--begin::Content-->
-                    @yield('content')
+                    @yield('member_content')
                     <!--end::Content-->
 
                     <!--begin::Footer-->
-                    @include('admin.includes.footer')
+                    @include('member.includes.footer')
                     <!--end::Footer-->
                    
                  <!--end::Wrapper-->
@@ -75,20 +77,20 @@ License: For each use you must have a valid license purchased only from above li
 
         <!--begin::Javascript-->
 		<!--begin::Page Custom Javascript(used by this page)-->
-        <script src="{{ asset('/themes/') }}/admin/js/custom.js"></script>
+        <script src="{{ asset('/themes/') }}/member/js/custom.js"></script>
         <!--end::Page Custom Javascript-->
 
         <!--begin::Global Javascript Bundle(used by all pages)-->
-        <script src="{{ asset('/themes/') }}/admin//plugins/global/plugins.bundle.js"></script>
-        <script src="{{ asset('/themes/') }}/admin//js/scripts.bundle.js"></script>
+        <script src="{{ asset('/themes/') }}/member/plugins/global/plugins.bundle.js"></script>
+        <script src="{{ asset('/themes/') }}/member/js/scripts.bundle.js"></script>
         <!--end::Global Javascript Bundle-->
 
         @if(Auth::guard('members')->check())
         <!--begin::Page Custom Javascript(used by this page)-->
-        <script src="{{ asset('/themes/') }}/admin//js/custom/widgets.js"></script>
-        <script src="{{ asset('/themes/') }}/admin//js/custom/apps/chat/chat.js"></script>
-        <script src="{{ asset('/themes/') }}/admin//js/custom/modals/create-app.js"></script>
-        <script src="{{ asset('/themes/') }}/admin//js/custom/modals/upgrade-plan.js"></script>
+        <script src="{{ asset('/themes/') }}/member/js/custom/widgets.js"></script>
+        <script src="{{ asset('/themes/') }}/member/js/custom/apps/chat/chat.js"></script>
+        <script src="{{ asset('/themes/') }}/member/js/custom/modals/create-app.js"></script>
+        <script src="{{ asset('/themes/') }}/member/js/custom/modals/upgrade-plan.js"></script>
         <!--end::Page Custom Javascript-->
         @endif
 		<!--end::Javascript-->

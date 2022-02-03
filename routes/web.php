@@ -15,16 +15,33 @@ Route::get('test', function () {
     echo "test one";
 });
 
-$MEMBER_PREFIX = "member";
-Route::get('/', 'member\MemberController@index');
-Route::get('/login', 'member\MemberController@login');
 
-/* Admin Routes */
+Route::get('/', 'member\BeforeLoginController@index');
+Route::get('/login', 'member\BeforeLoginController@login');
+Route::get('/sign-up', 'member\BeforeLoginController@signUp');
+Route::get('/forgot-password', 'member\BeforeLoginController@forgotPassword');
+Route::get('/verification', 'member\BeforeLoginController@verificationPage');
+Route::post('/process-register', 'member\BeforeLoginController@processRegister')->name('process-register');
+Route::post('/process-login', 'member\BeforeLoginController@processLogin')->name('member-process-login');
+Route::post('/process-verification', 'member\BeforeLoginController@processVerification')->name('process-verification');
+
+$MEMBER_PREFIX = "member";
+
+/* Member Routes */
 Route::group(['prefix' => $MEMBER_PREFIX], function(){
 
+ /* After Login Pages */
+    Route::group(['middleware' => 'member_auth'], function () {
+        /* Dashboard Rout */ 
+        Route::get('dashboard', 'member\MemberController@index');
 
-
+        /* Logout Rout */ 
+        Route::get('logout', 'member\BeforeLoginController@getLogout');
+    });
 });
+
+ /* Logout Rout */ 
+ Route::get('member/logout', 'member\BeforeLoginController@getLogout');
 
 
 $ADMIN_PREFIX = "admin";
