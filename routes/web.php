@@ -20,10 +20,12 @@ Route::get('/', 'member\BeforeLoginController@index');
 Route::get('/login', 'member\BeforeLoginController@login');
 Route::get('/sign-up', 'member\BeforeLoginController@signUp');
 Route::get('/forgot-password', 'member\BeforeLoginController@forgotPassword');
+Route::post('/process-forgot-password', 'member\BeforeLoginController@processForgotPassword')->name('process-forgot-password');
 Route::get('/verification', 'member\BeforeLoginController@verificationPage');
 Route::post('/process-register', 'member\BeforeLoginController@processRegister')->name('process-register');
 Route::post('/process-login', 'member\BeforeLoginController@processLogin')->name('member-process-login');
 Route::post('/process-verification', 'member\BeforeLoginController@processVerification')->name('process-verification');
+
 
 $MEMBER_PREFIX = "member";
 
@@ -32,10 +34,16 @@ Route::group(['prefix' => $MEMBER_PREFIX], function(){
 
  /* After Login Pages */
     Route::group(['middleware' => 'member_auth'], function () {
-        /* Dashboard Rout */ 
-        Route::get('dashboard', 'member\MemberController@index');
 
-        /* Logout Rout */ 
+        /* Dashboard Route */ 
+        Route::get('dashboard', 'member\MemberController@index');
+        Route::get('/', 'member\MemberController@index');
+
+        /* Change Password Route */ 
+        Route::get('change-password', 'member\BeforeLoginController@changePassword');
+        Route::post('process-change-password', 'member\BeforeLoginController@processChangePassword')->name('process-change-password');
+
+        /* Logout Route */ 
         Route::get('logout', 'member\BeforeLoginController@getLogout');
     });
 });

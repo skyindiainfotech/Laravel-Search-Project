@@ -628,7 +628,11 @@
 												<!--begin::Menu separator-->
 												<div class="separator my-2"></div>
 												<!--end::Menu separator-->
-
+												<!--begin::Menu item-->
+												<div class="menu-item px-5">
+													<a href="{{url('member/change-password')}}" class="menu-link px-5">Change Password</a>
+												</div>
+												<!--end::Menu item-->
 												<!--begin::Menu item-->
 												<div class="menu-item px-5">
 													<a href="{{url('member/logout')}}" class="menu-link px-5">Sign Out</a>

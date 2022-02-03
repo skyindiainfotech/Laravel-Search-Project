@@ -1,7 +1,7 @@
-@extends('admin.layout.app')
-<?php $action_url = route('login-process'); ?>
-@section('content_login')
-
+@extends('member.layout.app')
+<?php $action_url = route('process-forgot-password'); ?>
+@section('auth_content')
+@include('member.includes.flashMsg')
 <div class="d-flex flex-column flex-root">
 			<!--begin::Authentication - Sign-in -->
 			<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url({{ asset('/themes/') }}/admin/media/illustrations/progress-hd.png)">

@@ -68,8 +68,63 @@ class BeforeLoginController extends Controller
     public function forgotPassword(){
 
         $data = array(); 
-        $data['pageTitle'] = "Sign-up";
+        $data['pageTitle'] = "Forgot Password";
         return view('member.beforelogin.forgot-password',$data);
+    }
+
+
+    /**
+     * Get Forgot Password Function that send a mail with reset password link
+     * @param  $request
+     * @return $data
+    */
+    public function processForgotPassword(Request $request){
+            
+        $status = 0;
+        $msg = "Something went wrong, try again or may later.";
+        $redirctUrl = redirect()->back();
+
+        $requestArr = $request->all();
+        $validator = Validator::make($requestArr, [
+            'email' => 'required|email',            
+        ]);
+
+        if ($validator->fails()) {
+        
+            return redirect()->back()
+            ->withErrors($validator->errors())
+            ->withInput($request->all());
+        } else {
+            
+            $email = isset($requestArr['email'])? $requestArr['email'] : '';            
+
+            $memberObj = Members::where('email', '=', $email)->where('status', '=', '0')->get()->first();
+            if(isset($memberObj->id) && $memberObj->id > 0){
+
+                $reset_passsword_token = md5($memberObj->id);
+                $to = $memberObj->email;
+                $name = ucfirst($memberObj->first_name) . ' ' . ucfirst($memberObj->last_name);
+                $resetPasswordUrl = url('reset-password') . '/' . $reset_passsword_token;
+
+                // Send password reset link details in email
+                $emailData = array(
+                    'email_name' => 'ACCOUNT-FORGOT-PASSWORD-EMAIL',
+                    'to_email' => $memberObj->email,
+                    'NAME' => $name,
+                    'PASSWORDRESETLINK' => $resetPasswordUrl,         
+                );
+                $is_sent_email = CommonTrait::sendBulkEmailUsingSMTP($emailData);
+                                   
+                $memberObj->token_key = $reset_passsword_token;
+                $memberObj->save();
+                
+                $status = 1;
+                $msg = "Reset Password link was sent to your email account.";
+                $redirctUrl = redirect('/login');
+            }
+        }
+        session()->flash($status == 1 ? 'success' : 'error', $msg );
+        return $redirctUrl;
     }
 
 
@@ -150,7 +205,7 @@ class BeforeLoginController extends Controller
             'email' => 'required|min:2|email|unique:' . TBL_MEMBERS,
             'first_name' => 'required|min:2|max:255',
             'last_name' => 'required|min:2|max:255',
-            'password' => 'required|min:8|max:16',
+            'password' => 'required|min:8|max:16|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
             'confirm_password' => 'required|same:password',
             'terms_and_conditions' => 'required',
         ]);
@@ -252,6 +307,64 @@ class BeforeLoginController extends Controller
      }
    
    
+    /**
+     * Get Change Password Page Function
+     * @param  void
+     * @return $data
+    */
+    public function changePassword(){
+
+        $data = array(); 
+        $data['pageTitle'] =  __('change_password');
+        return view('member.beforelogin.change-password',$data);
+    }
+
+
+    /**
+     * Function for make change password of member
+     * @param  void
+     * @return $data
+    */
+    public function processChangePassword(Request $request){
+
+        if(Auth::guard('members')->user()){
+            $status = 0;
+            $msg = "Something went wrong, try again or may later.";
+            $redirctUrl = redirect()->back();
+
+            $requestArr = $request->all();
+            $validator = Validator::make($requestArr, [
+                'password' => 'required|min:8|max:16|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
+                'confirm_password' => 'required|same:password',            
+            ]);
+
+            if ($validator->fails()) {
+            
+                return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->all());
+                
+            } else {
+
+                if(Auth::guard('members')->check()){
+                    $memberObj = Auth::guard('members')->user();
+                    $memberObj->password = bcrypt($requestArr['password']);
+                    $memberObj->save();
+                    $status = 1;
+                    $msg = "Password changed successfully.";
+                    $redirctUrl = redirect(url('/member'));
+                }          
+            }
+
+            session()->flash($status == 1 ? 'success' : 'error', $msg );
+            return $redirctUrl;
+        }else{
+            session()->flash('error', 'Something went wrong, please login again.'); 
+            return redirect(url('/login'));
+        }
+    }
+
+
     /**
      * Function for Logout member from system
      * @param  void

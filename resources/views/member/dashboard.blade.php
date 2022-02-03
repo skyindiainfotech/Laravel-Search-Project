@@ -4,7 +4,7 @@
 
 @extends('member.layout.app')
 @section('member_content')
-
+@include('member.includes.flashMsg')
 					<!--begin::Content-->
 					<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 						<!--begin::Toolbar-->

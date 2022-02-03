@@ -44,8 +44,7 @@ License: For each use you must have a valid license purchased only from above li
 
         @endif
 
-        
-        @if(Auth::guard('members')->user())
+        @if(Auth::guard('members')->user() && !Request::is('member/change-password', 'member/change-password/*'))
 		<!--begin::Main-->
 		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root">

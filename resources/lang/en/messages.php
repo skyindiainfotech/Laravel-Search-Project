@@ -20,6 +20,7 @@ return [
     "submit" => "Submit",
     "cancel" => "Cancel",
     "back" => "Back",
+    "change_password" => "Change Password",
 
 ];
 ?>
