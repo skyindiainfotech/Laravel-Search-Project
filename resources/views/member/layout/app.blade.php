@@ -91,6 +91,12 @@ License: For each use you must have a valid license purchased only from above li
         <script src="{{ asset('/themes/') }}/member/js/custom/modals/create-app.js"></script>
         <script src="{{ asset('/themes/') }}/member/js/custom/modals/upgrade-plan.js"></script>
         <!--end::Page Custom Javascript-->
+        <!--begin::Page Vendors Javascript(used by this page)-->
+        <script src="{{ asset('/themes/') }}/member/plugins/custom/datatables/datatables.bundle.js"></script>
+        <!--end::Page Vendors Javascript-->
+        <script src="{{ asset('/themes/') }}/member/js/custom/apps/user-management/users/list/table.js"></script>
+        <script src="{{ asset('/themes/') }}/member/js/custom/apps/user-management/users/list/export-users.js"></script>
+        <script src="as{{ asset('/themes/') }}/membersets/js/custom/apps/user-management/users/list/add.js"></script>
         @endif
 		<!--end::Javascript-->
     </body>

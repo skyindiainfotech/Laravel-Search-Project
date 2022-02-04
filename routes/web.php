@@ -43,6 +43,9 @@ Route::group(['prefix' => $MEMBER_PREFIX], function(){
         Route::get('change-password', 'member\BeforeLoginController@changePassword');
         Route::post('process-change-password', 'member\BeforeLoginController@processChangePassword')->name('process-change-password');
 
+        /* Users */
+        Route::resource('users', 'member\UsersController');
+
         /* Logout Route */ 
         Route::get('logout', 'member\BeforeLoginController@getLogout');
     });

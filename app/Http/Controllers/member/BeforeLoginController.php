@@ -295,7 +295,7 @@ class BeforeLoginController extends Controller
                     return redirect(url('/login'));
                 }
 
-                session()->flash('success', 'Login Successfully.');        
+               // session()->flash('success', 'Login Successfully.');        
                 return redirect(url('/member/dashboard'));
             }else{
                 session()->flash('error', 'Invalid login details.'); 

@@ -93,5 +93,57 @@ trait CommonTrait{
         return $randomString;
     }
 
+
+
+    /**
+     * Delete directory Function 
+     * @param  $dir - path of directory want to delete.
+     * @return $Response
+    */
+    public static function deleteDirectory($dir)
+    {
+        if (!file_exists($dir)) {
+            return true;
+        }
+
+        if (!is_dir($dir)) {
+            return unlink($dir);
+        }
+
+        foreach (scandir($dir) as $item) {
+            if ($item == '.' || $item == '..') {
+            continue;
+            }
+            if (!CommonTrait::deleteDirectory($dir . DIRECTORY_SEPARATOR . $item)) {
+            return false;
+            }
+        }
+        return rmdir($dir);
+    }
+    
+    
+    /**
+     * Generate the random string
+     * @param  $fullpath
+     * @param  $uploaded_filename.
+     * @return $Response
+    */
+    public static function getFilename($fullpath, $uploaded_filename)
+    {
+        $count = 1;
+        $new_filename = $uploaded_filename;
+        $firstinfo = pathinfo($fullpath);
+    
+        while (file_exists($fullpath)) {
+          $info = pathinfo($fullpath);
+          $count++;
+          $new_filename = $firstinfo['filename'] . '(' . $count . ')' . '.' . $info['extension'];
+          $fullpath = $info['dirname'] . '/' . $new_filename;    
+        }
+
+        return $new_filename;
+    }
+    
+
 }	
 

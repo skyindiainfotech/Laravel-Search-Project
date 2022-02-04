@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\member;
 
 use Validator;
 use Illuminate\Http\Request;
@@ -13,12 +13,11 @@ use App\CommonTrait;
 
 /* Define Models */ 
 use App\Models\Users;
-use App\Models\Countries;
 
 
 class UsersController extends Controller
 {
-    
+
   public function __construct() 
   {
 
@@ -31,12 +30,12 @@ class UsersController extends Controller
     $this->modelObj = new Users;
 
 		// Links
-		$this->list_url = route($this->module_slug . ".index");
-		$this->add_url = ADMIN_HOME_URL . '/'. $this->module_slug .'/create';
-		$this->edit_url = ADMIN_HOME_URL. '/'. $this->module_slug .'/{id}/edit';
+		$this->list_url = url('/member/'.$this->module_slug);
+		$this->add_url = url('/member') . '/'. $this->module_slug ;
+		$this->edit_url = url('/member'). '/'. $this->module_slug .'/{id}/edit';
 
   		// View
-		$this->view_base = 'admin.'.$this->module_slug;
+		$this->view_base = 'member.'.$this->module_slug;
 	}
 
 
@@ -59,20 +58,19 @@ class UsersController extends Controller
         'record_per_page' => env('APP_RECORDS_PER_PAGE', 20)
       );
 
-      $rows = $this->modelObj->getAdminList($list_params);
+      $rows = $this->modelObj->getMemberList($list_params);
 
       $data['rows'] = $rows;
       $data['list_params'] = $list_params;
       $data['searchColumns'] = [
           'all' => 'All',
           $this->table_name.'.id' => 'ID',
-          $this->table_name.'.name' => 'Name',
           $this->table_name.'.username' => 'Username'
-          
       ];
         
       $data['with_date'] = 1;
       $data['pageTitle'] = 'Users'; 
+  
       return view($this->view_base . '.index', $data);
     }
 
@@ -97,7 +95,65 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
- 
+      $status = 0;
+      $msg = "Something went wrong, try again or may later.";
+      $redirctUrl = redirect()->back();
+
+      $requestArr = $request->all();
+      $validator = Validator::make($request->all(), [
+        'username' => 'required|alpha_num|min:2|max:20|unique:' . $this->table_name,
+        'password' => 'required|min:2|max:15',
+        'file' => 'required|mimes:xls,xlsx'
+      ]);
+
+      if($validator->fails())
+      {
+        return redirect($this->add_url)->withErrors($validator)->withInput();
+      
+      } else {
+
+        $memberObj = Auth::guard('members')->user();
+            
+        $model = $this->modelObj;
+        $insertArr = array(
+          'username' => $requestArr['username'],
+          'password' => $requestArr['password'],
+          'member_id' => $memberObj->id,
+          'status' => 0,
+        );
+
+			  $obj = $model::create($insertArr);
+
+        if(isset($obj->id) && $obj->id > 0){
+          
+          $status = 1;
+          $msg = "User details uploaded.";
+
+          if($request->hasFile('file')) 
+          {
+            $xls_file = $request->file('file');
+            // file name contains the user_id, member_id and current time.
+            $filename  =  $obj->id.'-'.$memberObj->id.'-'.time().'.'.$xls_file->getClientOriginalExtension();                
+                
+            $uploadPath = public_path('uploads' . DIRECTORY_SEPARATOR . $this->module_slug . DIRECTORY_SEPARATOR . $obj->id);
+            CommonTrait::deleteDirectory($uploadPath);
+                                                                                                                          
+            $fullpath = $uploadPath.DIRECTORY_SEPARATOR.$filename;
+            $filename = CommonTrait::getFilename($fullpath, $filename);                                                                
+            
+            $xls_file->move($uploadPath, $filename);
+            $file_url = url('uploads' . '/' . $this->module_slug . '/' . $obj->id . '/' . $filename);
+            $obj->file = $file_url;
+            $obj->save();                
+
+            $status = 1;
+            $msg = "User details and file are uploaded successfully.";
+            $redirctUrl = redirect($this->list_url);
+          }
+        }
+      } 
+      session()->flash($status == 1 ? 'success' : 'error', $msg );
+      return $redirctUrl;  
     }
 
 
