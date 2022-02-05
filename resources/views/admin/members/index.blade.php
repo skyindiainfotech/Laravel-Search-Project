@@ -13,7 +13,7 @@ $delete_url = '/members';
                 <!--begin::Page title-->
                 <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3">
                     <!--begin::Title-->
-                    <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Users Management</h1>
+                    <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">@lang('messages.member_management')</h1>
                     <!--end::Title-->
                     <!--begin::Separator-->
                     <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -40,7 +40,7 @@ $delete_url = '/members';
                                 <!--begin::Modal header-->
                                 <div class="modal-header" id="kt_modal_add_user_header">
                                     <!--begin::Modal title-->
-                                    <h2 class="fw-bolder">Members Details</h2>
+                                    <h2 class="fw-bolder">@lang('messages.member_details')</h2>
                                     <!--end::Modal title-->
                                     
                                 </div>
@@ -53,7 +53,7 @@ $delete_url = '/members';
                                         <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
                                             
                                             <!--begin::Input group-->
-                                            <h3>Member Details</h3>
+                                            <h3>@lang('messages.member_details')</h3>
                                             <div class="fv-row mb-7">
                                                 <!--begin::Label-->
                                                 <label class="fw-bold fs-6 mb-2" id="member"></label>
@@ -102,12 +102,12 @@ $delete_url = '/members';
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th class="min-w-125px">Sr. no.</th>
-                                    <th class="min-w-125px">Name</th>
-                                    <th class="min-w-125px">Email</th>
-                                    <th class="min-w-125px">Status</th>
-                                    <th class="min-w-125px">Last Updated Date</th>
-                                    <th class="text-end min-w-100px">Actions</th>
+                                    <th class="min-w-125px">@lang('messages.sr_no')</th>
+                                    <th class="min-w-125px">@lang('messages.name')</th>
+                                    <th class="min-w-125px">@lang('messages.email')</th>
+                                    <th class="min-w-125px">@lang('messages.status')</th>
+                                    <th class="min-w-125px">@lang('messages.last_updated_date')</th>
+                                    <th class="text-end min-w-100px">@lang('messages.actions')</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -135,9 +135,11 @@ $delete_url = '/members';
                                     <!--begin::status -->
                                     <td>
                                         @if ($row->status == '1')
-                                            <a href="{{ url('admin/change-member-status').'/'.$row->id  }}" class="badge badge-light-warning">Inactive</a>
+                                            <a href="{{ url('admin/change-member-status').'/'.$row->id  }}" 
+                                            class="badge badge-light-warning">@lang('messages.inactive')</a>
                                         @elseif ($row->status == '0')
-                                            <a href="{{ url('admin/change-member-status').'/'.$row->id  }}" class="badge badge-light-success">Active</a>
+                                            <a href="{{ url('admin/change-member-status').'/'.$row->id  }}" 
+                                            class="badge badge-light-success">@lang('messages.active')</a>
                                         @endif 
                                     </td>
                                     <!--begin::status-->
@@ -148,7 +150,7 @@ $delete_url = '/members';
 
                                     <!--begin::Action=-->
                                     <td class="text-end">
-                                        <a href="javascript:void(0)" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">Actions
+                                        <a href="javascript:void(0)" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">@lang('messages.actions')
                                         <!--begin::Svg Icon | path: icons/duotone/Navigation/Angle-down.svg-->
                                         <span class="svg-icon svg-icon-5 m-0">
                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -163,14 +165,14 @@ $delete_url = '/members';
                                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-3 view-row"  data-id="{{ $row->id ?? '' }}" >
-                                                <a class="menu-link px-3">View</a>
+                                                <a class="menu-link px-3">@lang('messages.view')</a>
                                             </div>
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-3">
                                             {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $row->id],'onsubmit' => 'return confirm("Are you sure?")']) !!}
 
-                                            <button type="submit" class="btn-delete-custom menu-link px-3" >Delete</button>
+                                            <button type="submit" class="btn-delete-custom menu-link px-3" >@lang('messages.delete')</button>
 
                                             {!! Form::close() !!}
                                                 
@@ -185,7 +187,7 @@ $delete_url = '/members';
                                 @endforeach         
                             @else
                                 <tr>
-                                    <td colspan="4">No Records Found.</td>
+                                    <td colspan="4">@lang('messages.no_record_found')</td>
                                 </tr>                    
                             @endif
                             </tbody>
@@ -221,16 +223,16 @@ $(document).ready(function () {
                     if(data.status == 'success'){
                         $('#kt_modal_add_user').modal('show');
                         $('.display-file').empty();
-                        $('#member').html("Name : "+data.content.first_name+" "+data.content.last_name);
-                        $('#m_email').html("Email : "+data.content.email);
-                        $('#status').html("Status : "+data.content.status);
-                        $('#updated_at').html("Last Updated at : "+data.content.updated_at);
+                        $('#member').html("{{ __('name') }} : "+data.content.first_name+" "+data.content.last_name);
+                        $('#m_email').html("{{ __('email') }} : "+data.content.email);
+                        $('#status').html("{{ __('status') }} : "+data.content.status);
+                        $('#updated_at').html("{{ __('last_updated_at') }} : "+data.content.updated_at);
                      
                     }else{
                         if(data.slug == "logout"){
                             window.location.href = "{{ url('/login') }}";
                         }
-                        popMessage('error',"Didn't found user !");
+                        popMessage('error',"{{ __('didnt_found_user') }}");
                     }
                 }			
             });	
