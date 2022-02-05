@@ -46,7 +46,6 @@ Route::group(['prefix' => $MEMBER_PREFIX], function(){
         /* Users */
         Route::resource('users', 'member\UsersController');
         Route::post('get-user-data-by-id', 'member\UsersController@getUserdataByID')->name('get-user-data-by-id');
-        //Route::get('/users/destroy/{id}', 'member\UsersController@destroy');
 
         /* Logout Route */ 
         Route::get('logout', 'member\BeforeLoginController@getLogout');
@@ -76,6 +75,15 @@ Route::group(['prefix' => $ADMIN_PREFIX], function(){
         /* Dashboard Rout */ 
     	Route::get('dashboard', 'admin\AdminController@index')->name('dashboard');
 
+        /* Member Routes */
+        Route::resource('members', 'admin\MembersController');
+        Route::post('get-member-data-by-id', 'admin\MembersController@getMemberdataByID')->name('get-member-data-by-id');
+        Route::get('change-member-status/{id}', 'admin\MembersController@changeStatus');
+        
+        /* Users Routes */
+        Route::resource('admin-users', 'admin\UsersController');
+        Route::post('get-user-data-by-id-admin', 'admin\UsersController@getUserdataByID')->name('get-user-data-by-id-admin');
+        
     	/* Logout Rout */ 
     	Route::get('logout', 'admin\AdminLoginController@getLogout')->name('logout');
     });

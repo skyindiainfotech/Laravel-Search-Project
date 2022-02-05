@@ -48,14 +48,23 @@ class MemberAuthenticate
             else 
             {
                 // check user permission
-                $user = Auth::guard($guard)->user();
-                if(!(isset($user->status) && $user->status != 0)){
-                    Auth::guard($guard)->logout();
-                    return redirect(url('/login'));
-                }
+                if(Auth::guard($guard)->check()){
+                    $user = Auth::guard($guard)->user();
+                    if(!(isset($user->status) && $user->status != 0)){
+                        Auth::guard($guard)->logout();
+                        return redirect(url('/login'));
+                    }
+                }   
             }
         }
 
+        if(Auth::guard($guard)->check()){
+            $user = Auth::guard($guard)->user();
+            if(isset($user->status) && $user->status != 0){
+                Auth::guard($guard)->logout();
+                return redirect(url('/login'));
+            }
+        }
         
 
         return $next($request);

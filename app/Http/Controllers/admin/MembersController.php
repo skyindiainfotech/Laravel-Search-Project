@@ -65,9 +65,9 @@ class MembersController extends Controller
       $data['searchColumns'] = [
           'all' => 'All',
           $this->table_name.'.id' => 'ID',
-          $this->table_name.'.name' => 'Name',
-          $this->table_name.'.username' => 'Username'
-          
+          $this->table_name.'.first_name' => 'First Name',
+          $this->table_name.'.last_name' => 'Last Name',
+          $this->table_name.'.email' => 'Email',
       ];
         
       $data['with_date'] = 1;
@@ -137,6 +137,88 @@ class MembersController extends Controller
     {
       $requestArr = $request->all();
       return redirect($this->list_url);
+    }
+
+
+    
+    /**
+     * Get Member data by id
+     * @param  void
+     * @return $data
+    */
+    public function getMemberdataByID(Request $request){
+
+      $data = array();
+      $reqArr = $request->all();
+      $status = 0;
+      $content = array();
+      $msg = "Something went wrong, try again or may later.";
+      
+      $validator = Validator::make($request->all(), [
+        'id' => 'required|numeric',
+      ]);
+  
+      if ($validator->fails())
+      {
+          $this->responseData['status'] = 0;
+          $this->responseData['msg'] = $validator->messages()->first();
+          echo json_encode($this->responseData); exit;
+      } else
+      { 
+
+          $memberObj = $this->modelObj->getAdminList(array('id' => $reqArr['id']));
+
+          if(isset($memberObj[0])){
+            $memberObj = $memberObj[0];
+  
+            $status = $memberObj->status == 0 ? 'Active' : 'Inactive';
+            $content = array(
+              'first_name' => $memberObj->first_name,
+              'last_name' => $memberObj->last_name,
+              'email' => $memberObj->email,
+              'status' => $status,
+              'updated_at' => $memberObj->updated_at,
+            );
+            $status = "success";
+            $msg = "member list availble.";
+          }
+
+      }
+
+      $this->responseData['status'] = $status;
+      $this->responseData['msg'] = $msg;
+      if(!empty($content)) $this->responseData['content'] = $content;
+
+      echo json_encode($this->responseData); exit; 
+    }
+
+
+    /**
+     * Change Member status to Active/Inactive.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function changeStatus($id)
+    {
+      $status = 0;
+      $msg = "Something went wrong, try again or may later.";
+
+      if(isset($id) && $id > 0){
+        $memberObj = Members::where('id',$id)->first();
+
+        $status = 0;
+        $msg = 'user not found';
+        if(isset($memberObj->id)){
+          $memberObj->status = $memberObj->status == '0' ? '1' : '0';
+          $memberObj->save();
+
+          $status = 1;
+          $msg = 'User status updated succesfully.';
+        }
+      }
+      session()->flash($status == 1 ? 'success' : 'error', $msg );
+      return redirect()->back();
     }
 
 

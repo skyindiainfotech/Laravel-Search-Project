@@ -6,14 +6,19 @@ function popMessage($status,$msg){
             buttonsStyling: !1,
             confirmButtonText: "Ok, got it!",
             customClass: {
-                confirmButton: "btn btn-primary"
+                confirmButton: "btn btn-danger"
             }
         })
     }else{
         Swal.fire({
             text: $msg,
             icon: $status,
-            showConfirmButton: false,
+            //showConfirmButton: false,
+            buttonsStyling: !1,
+            confirmButtonText: "Ok, got it!",
+            customClass: {
+                confirmButton: "btn btn-primary"
+            }
         })
     }
    

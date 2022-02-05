@@ -291,7 +291,7 @@ class BeforeLoginController extends Controller
                 $user = Auth::guard('members')->user();
                 if($user->status == 1){
                     Auth::guard('members')->logout();
-                    session()->flash('error', 'Your account is not activated');
+                    session()->flash('error', 'Your account is not active!');
                     return redirect(url('/login'));
                 }
 

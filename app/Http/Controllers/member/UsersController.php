@@ -115,9 +115,10 @@ class UsersController extends Controller
       
       } else {
 
+
         $isEdit = false;
         $memberObj = Auth::guard('members')->user();
-        
+        $obj = NULL;
         if(isset($requestArr['user_id']) && $requestArr['user_id'] != ''){
           $obj = Users::where('id',$requestArr['user_id'])->first();
           $obj->username = $requestArr['username'] ?? '';
