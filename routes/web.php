@@ -21,6 +21,8 @@ Route::get('/login', 'member\BeforeLoginController@login');
 Route::get('/sign-up', 'member\BeforeLoginController@signUp');
 Route::get('/forgot-password', 'member\BeforeLoginController@forgotPassword');
 Route::post('/process-forgot-password', 'member\BeforeLoginController@processForgotPassword')->name('process-forgot-password');
+Route::get('/reset-password/{token}', 'member\BeforeLoginController@resetPassword');
+Route::post('/reset-forgot-password', 'member\BeforeLoginController@processResetPassword')->name('process-reset-password');
 Route::get('/verification', 'member\BeforeLoginController@verificationPage');
 Route::post('/process-register', 'member\BeforeLoginController@processRegister')->name('process-register');
 Route::post('/process-login', 'member\BeforeLoginController@processLogin')->name('member-process-login');
@@ -52,8 +54,10 @@ Route::group(['prefix' => $MEMBER_PREFIX], function(){
     });
 });
 
- /* Logout Rout */ 
- Route::get('member/logout', 'member\BeforeLoginController@getLogout');
+/* Logout Rout */ 
+Route::get('member/logout', 'member\BeforeLoginController@getLogout');
+
+
 
 
 $ADMIN_PREFIX = "admin";
@@ -88,9 +92,6 @@ Route::group(['prefix' => $ADMIN_PREFIX], function(){
     	Route::get('logout', 'admin\AdminLoginController@getLogout')->name('logout');
     });
 });
-
-/* Member Routes */
-//Route::get('/', 'admin\AdminLoginController@landingPage');
 
 
 Route::get('/clear', function ()

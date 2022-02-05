@@ -72,6 +72,71 @@ class BeforeLoginController extends Controller
         return view('member.beforelogin.forgot-password',$data);
     }
 
+     
+    /**
+     * Get Reset Password Page Function
+     * @param  void
+     * @return $data
+    */
+    public function resetPassword($token){
+
+        $data = array(); 
+        $data['pageTitle'] = "Reset Password";
+        $memberObj = Members::where('token_key',$token)->first();
+        if(isset($memberObj->id) && $memberObj->id > 0){
+            $data['token'] = $token;
+            return view('member.beforelogin.reset-password',$data);
+        }else{
+            session()->flash('error',"Token has been expired!" );
+            return redirect(url('/login'));
+        }
+    }
+
+
+    /**
+     * Function for make change password of member
+     * @param  void
+     * @return $data
+    */
+    public function processResetPassword(Request $request){
+
+        $status = 0;
+        $msg = "Something went wrong, try again or may later.";
+        $redirctUrl = redirect()->back();
+
+        $requestArr = $request->all();
+        $validator = Validator::make($requestArr, [
+            'password' => 'required|min:8|max:16|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
+            'confirm_password' => 'required|same:password',            
+            'token_key' => 'required',            
+        ]);
+
+        if ($validator->fails()) {
+        
+            return redirect()->back()
+            ->withErrors($validator)
+            ->withInput($request->all());
+            
+        } else {
+
+            $memberObj = Members::where('token_key',$requestArr['token_key'])->first();
+            if(isset($memberObj->id) && $memberObj->id > 0){
+                $memberObj->password = bcrypt($requestArr['password']);
+                $memberObj->save();
+                $status = 1;
+                $msg = "Password reset successfully, You can login now.";
+                $redirctUrl = redirect(url('/login'));
+            }
+            else{
+                $status = 0;
+                $msg = "Token has been expired.";
+            }
+        }
+
+        session()->flash($status == 1 ? 'success' : 'error', $msg );
+        return $redirctUrl;
+    }
+
 
     /**
      * Get Forgot Password Function that send a mail with reset password link
