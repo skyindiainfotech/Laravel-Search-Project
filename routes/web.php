@@ -42,9 +42,11 @@ Route::group(['prefix' => $MEMBER_PREFIX], function(){
         /* Change Password Route */ 
         Route::get('change-password', 'member\BeforeLoginController@changePassword');
         Route::post('process-change-password', 'member\BeforeLoginController@processChangePassword')->name('process-change-password');
-
+        
         /* Users */
         Route::resource('users', 'member\UsersController');
+        Route::post('get-user-data-by-id', 'member\UsersController@getUserdataByID')->name('get-user-data-by-id');
+        //Route::get('/users/destroy/{id}', 'member\UsersController@destroy');
 
         /* Logout Route */ 
         Route::get('logout', 'member\BeforeLoginController@getLogout');

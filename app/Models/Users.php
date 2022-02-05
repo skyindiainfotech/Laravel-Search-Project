@@ -53,6 +53,7 @@ class Users extends Model
 		$to_date = isset($params['to_date']) ? trim($params['to_date']) : '';
 		$sortBy = isset($params['sort_by']) ? $params['sort_by'] : '';
 		$sortOrd = isset($params['sort_order']) ? $params['sort_order'] : 'DESC';
+		$member_id = isset($params['member_id']) ? $params['member_id'] : '';
 
 		$selectArray[] = $this->table . '.*';
 		$query = DB::table($this->table);   
@@ -77,6 +78,10 @@ class Users extends Model
 		if ($to_date != "") {
 			$to_date = \Carbon\Carbon::createFromFormat('Y-m-d', $to_date)->format('Y-m-d');
 			$query->whereDate($this->table . ".created_at", '<=', $to_date);			
+		}
+
+		if($member_id != ''){
+			$query->where($this->table . ".member_id",$member_id);
 		}
 
 		// sort query

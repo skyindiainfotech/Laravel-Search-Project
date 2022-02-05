@@ -1,0 +1,11 @@
+.btn-delete-custom{
+    background: transparent;
+    outline: none;
+    border: none;
+    width: 100%;
+}
+.menu-item .btn-delete-custom:hover {
+    transition: color .2s ease,background-color .2s ease;
+    background-color: #ecf8ff;
+    color: #009ef7;
+}

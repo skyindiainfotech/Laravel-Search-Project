@@ -5,6 +5,7 @@ $(document).ready(function () {
     popMessage('success',$msg);
 });  
 </script>    
+
 @endif
 
 @if(Session::has('error'))  
@@ -14,6 +15,7 @@ $(document).ready(function () {
     popMessage('error',$msg);
 }); 
 </script>
+
 @endif
 
 
@@ -31,4 +33,5 @@ $(document).ready(function () {
     popMessage('error',$msg);
 }); 
 </script>
+@php($errors = array())
 @endif

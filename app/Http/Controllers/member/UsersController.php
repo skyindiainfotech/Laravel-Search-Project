@@ -48,6 +48,8 @@ class UsersController extends Controller
     public function index(Request $request)
     {
       $data = array();
+      $memberObj = Auth::guard('members')->user();
+
       $list_params = array(         
         'from_date' => $request->get('from_date'),
         'to_date' => $request->get('to_date'),
@@ -55,7 +57,8 @@ class UsersController extends Controller
         'search_text' => $request->get('search_text'),
         'sort_by' => $request->get('sortBy'),
         'sort_order' => $request->get('sortOrd'),
-        'record_per_page' => env('APP_RECORDS_PER_PAGE', 20)
+        'record_per_page' => env('APP_RECORDS_PER_PAGE', 20),
+        'member_id' => $memberObj->id
       );
 
       $rows = $this->modelObj->getMemberList($list_params);
@@ -103,7 +106,7 @@ class UsersController extends Controller
       $validator = Validator::make($request->all(), [
         'username' => 'required|alpha_num|min:2|max:20|unique:' . $this->table_name,
         'password' => 'required|min:2|max:15',
-        'file' => 'required|mimes:xls,xlsx'
+        'file' => 'nullable|mimes:xls,xlsx'
       ]);
 
       if($validator->fails())
@@ -112,17 +115,25 @@ class UsersController extends Controller
       
       } else {
 
+        $isEdit = false;
         $memberObj = Auth::guard('members')->user();
-            
-        $model = $this->modelObj;
-        $insertArr = array(
-          'username' => $requestArr['username'],
-          'password' => $requestArr['password'],
-          'member_id' => $memberObj->id,
-          'status' => 0,
-        );
-
-			  $obj = $model::create($insertArr);
+        
+        if(isset($requestArr['user_id']) && $requestArr['user_id'] != ''){
+          $obj = Users::where('id',$requestArr['user_id'])->first();
+          $obj->username = $requestArr['username'] ?? '';
+          $obj->password = $requestArr['password'] ?? '';
+          $obj->save();
+          $isEdit = true;
+        }else{
+          $insertArr = array(
+            'username' => $requestArr['username'],
+            'password' => $requestArr['password'],
+            'member_id' => $memberObj->id,
+            'status' => 0,
+          );
+          $model = $this->modelObj;
+          $obj = $model::create($insertArr);
+        }
 
         if(isset($obj->id) && $obj->id > 0){
           
@@ -158,6 +169,67 @@ class UsersController extends Controller
 
 
     /**
+     * Get user data by id
+     * @param  void
+     * @return $data
+    */
+    public function getUserdataByID(Request $request){
+
+      $data = array();
+      $reqArr = $request->all();
+      $status = 0;
+      $content = array();
+      $msg = "Something went wrong, try again or may later.";
+      
+      $validator = Validator::make($request->all(), [
+        'id' => 'required|numeric',
+      ]);
+  
+      if ($validator->fails())
+      {
+          $this->responseData['status'] = 0;
+          $this->responseData['msg'] = $validator->messages()->first();
+          echo json_encode($this->responseData); exit;
+      } else
+      {
+          if(Auth::guard('members')->check()){
+            $memberObj = Auth::guard('members')->user();
+            $userObj = Users::where('id',$reqArr['id'])->first();
+
+            $file = '';
+            $file_name = '';
+            if(isset($userObj->file) && $userObj->file != ''){
+              $file = $userObj->file;
+              $fileInfo = pathinfo($file);
+              $file_name = $fileInfo['filename'].".".$fileInfo['extension'] ;
+            }
+
+            $content = array(
+              'username' => $userObj->username ?? '',
+              'password' => $userObj->password ?? '',
+              'file' => $file,
+              'file_name' => $file_name,
+              'member_id' => $memberObj->id,
+            );
+            $status = "success";
+            $msg = "user list availble.";
+
+          }else{
+            $status = "error";
+            $msg = "please login again.";
+            $this->responseData['slug'] = 'logout';
+          }
+      }
+
+      $this->responseData['status'] = $status;
+      $this->responseData['msg'] = $msg;
+      if(!empty($content)) $this->responseData['content'] = $content;
+
+      echo json_encode($this->responseData); exit; 
+    }
+
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -179,7 +251,7 @@ class UsersController extends Controller
     public function show($id)
     {
       $data = array();
-      return view($this->view_base . '.show', $data);
+      return view($this->view_base . '.index', $data);
     }
 
 
@@ -205,6 +277,32 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-      return redirect($this->list_url);
+      $model = $this->modelObj;
+		  $modelObj = $model::find($id);
+
+      if ($modelObj)
+      {
+        try
+        {
+
+          $uploadPath = public_path('uploads' . DIRECTORY_SEPARATOR . $this->module_slug . DIRECTORY_SEPARATOR . $modelObj->id . DIRECTORY_SEPARATOR);
+          CommonTrait::deleteDirectory($uploadPath);
+				  $modelObj->delete();
+
+          session()->flash('success', "User has been successfully deleted");
+          return redirect()->back();
+        } catch (Exception $e)
+        {
+
+          session()->flash('error', "User can not deleted!");
+          return redirect()->back();
+        }
+      } else
+      {
+
+			  session()->flash('error', "User can not deleted!");
+			  return redirect()->back();
+		  }
+      return redirect()->back();
     }
 }

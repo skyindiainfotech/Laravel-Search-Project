@@ -94,9 +94,16 @@
 								</div>
 								<!--end::Menu wrapper-->
 								<!--begin::Toolbar-->
+								@if(Auth::guard('members')->check())
+								<div class="flex-equal text-end ms-1">
+									<a href="{{url('/member')}}" class="btn btn-primary">Dashboard</a>
+								</div>
+								@else
 								<div class="flex-equal text-end ms-1">
 									<a href="{{url('/login')}}" class="btn btn-success">Sign In</a>
 								</div>
+								@endif
+								
 								<!--end::Toolbar-->
 							</div>
 							<!--end::Wrapper-->

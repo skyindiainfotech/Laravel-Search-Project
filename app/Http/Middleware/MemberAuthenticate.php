@@ -49,7 +49,7 @@ class MemberAuthenticate
             {
                 // check user permission
                 $user = Auth::guard($guard)->user();
-                if($user->status == 1){
+                if(!(isset($user->status) && $user->status != 0)){
                     Auth::guard($guard)->logout();
                     return redirect(url('/login'));
                 }

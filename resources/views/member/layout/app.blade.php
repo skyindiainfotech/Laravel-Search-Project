@@ -15,6 +15,7 @@ License: For each use you must have a valid license purchased only from above li
 	<head><base href="../../../">
 		<meta charset="utf-8" />
 		<title>Search Demo </title>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 		<meta name="description" content="Metronic admin dashboard live demo. Check out all the features of the admin panel. A large number of settings, additional services and widgets." />
 		<meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular 11, VueJs, React, Laravel, admin themes, web design, figma, web development, ree admin themes, bootstrap admin, bootstrap dashboard" />
 		<link rel="canonical" href="Https://preview.keenthemes.com/metronic8" />
@@ -24,10 +25,11 @@ License: For each use you must have a valid license purchased only from above li
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
 		<!--end::Fonts-->
 		<!--begin::Global Stylesheets Bundle(used by all pages)-->
-        
+        <link href="{{ asset('/themes/') }}/member/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
         <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 		<link href="{{ asset('/themes/') }}/member/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('/themes/') }}/member/css/style.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('/themes/') }}/member/css/custom.css" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
 	</head>
 	<!--end::Head-->
@@ -44,7 +46,7 @@ License: For each use you must have a valid license purchased only from above li
 
         @endif
 
-        @if(Auth::guard('members')->user() && !Request::is('member/change-password', 'member/change-password/*'))
+        @if(Auth::guard('members')->user() && !Request::is('member/change-password', 'member/change-password/*') && !Request::is('/', '/'))
 		<!--begin::Main-->
 		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root">
@@ -86,6 +88,10 @@ License: For each use you must have a valid license purchased only from above li
 
         @if(Auth::guard('members')->check())
         <!--begin::Page Custom Javascript(used by this page)-->
+        <script src="{{ asset('/themes/') }}/member/js/custom/apps/user-management/users/list/table.js"></script>
+        <script src="{{ asset('/themes/') }}/member/js/custom/apps/user-management/users/list/export-users.js"></script>
+        <script src="as{{ asset('/themes/') }}/membersets/js/custom/apps/user-management/users/list/add.js"></script>
+
         <script src="{{ asset('/themes/') }}/member/js/custom/widgets.js"></script>
         <script src="{{ asset('/themes/') }}/member/js/custom/apps/chat/chat.js"></script>
         <script src="{{ asset('/themes/') }}/member/js/custom/modals/create-app.js"></script>
@@ -94,9 +100,7 @@ License: For each use you must have a valid license purchased only from above li
         <!--begin::Page Vendors Javascript(used by this page)-->
         <script src="{{ asset('/themes/') }}/member/plugins/custom/datatables/datatables.bundle.js"></script>
         <!--end::Page Vendors Javascript-->
-        <script src="{{ asset('/themes/') }}/member/js/custom/apps/user-management/users/list/table.js"></script>
-        <script src="{{ asset('/themes/') }}/member/js/custom/apps/user-management/users/list/export-users.js"></script>
-        <script src="as{{ asset('/themes/') }}/membersets/js/custom/apps/user-management/users/list/add.js"></script>
+
         @endif
 		<!--end::Javascript-->
     </body>
