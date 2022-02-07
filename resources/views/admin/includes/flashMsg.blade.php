@@ -28,7 +28,7 @@ $(document).ready(function () {
 
 <script  type="text/javascript">
 $(document).ready(function () {
-    $msg = "Whoops!"+" There were some problems with your input.";
+    $msg = "Whoops!"+" {{ __('input_issue') }}";
     $msg += "{{ $error_str }}";
     popMessage('error',$msg);
 }); 

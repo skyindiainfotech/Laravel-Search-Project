@@ -67,12 +67,12 @@ class UsersController extends Controller
       $data['list_params'] = $list_params;
       $data['searchColumns'] = [
           'all' => 'All',
-          $this->table_name.'.id' => 'ID',
-          $this->table_name.'.username' => 'Username'
+          $this->table_name.'.id' => __('id'),
+          $this->table_name.'.username' => __('username'),
       ];
         
       $data['with_date'] = 1;
-      $data['pageTitle'] = 'Users'; 
+      $data['pageTitle'] = __('users'); 
   
       return view($this->view_base . '.index', $data);
     }
@@ -99,7 +99,7 @@ class UsersController extends Controller
     public function store(Request $request)
     {
       $status = 0;
-      $msg = "Something went wrong, try again or may later.";
+      $msg = __('went_wrong');
       $redirctUrl = redirect()->back();
 
       $requestArr = $request->all();
@@ -139,7 +139,7 @@ class UsersController extends Controller
         if(isset($obj->id) && $obj->id > 0){
           
           $status = 1;
-          $msg = "User details uploaded.";
+          $msg = __('user_details_uploaded');
 
           if($request->hasFile('file')) 
           {
@@ -159,7 +159,7 @@ class UsersController extends Controller
             $obj->save();                
 
             $status = 1;
-            $msg = "User details and file are uploaded successfully.";
+            $msg = __('user_details_and_file_uploaded');
             $redirctUrl = redirect($this->list_url);
           }
         }
@@ -180,7 +180,7 @@ class UsersController extends Controller
       $reqArr = $request->all();
       $status = 0;
       $content = array();
-      $msg = "Something went wrong, try again or may later.";
+      $msg = __('went_wrong');
       
       $validator = Validator::make($request->all(), [
         'id' => 'required|numeric',
@@ -213,11 +213,11 @@ class UsersController extends Controller
               'member_id' => $memberObj->id,
             );
             $status = "success";
-            $msg = "user list availble.";
+            $msg = __('user_list_avl');
 
           }else{
             $status = "error";
-            $msg = "please login again.";
+            $msg = __('please_login_again');
             $this->responseData['slug'] = 'logout';
           }
       }
@@ -290,18 +290,18 @@ class UsersController extends Controller
           CommonTrait::deleteDirectory($uploadPath);
 				  $modelObj->delete();
 
-          session()->flash('success', "User has been successfully deleted");
+          session()->flash('success', __('user_delete_success'));
           return redirect()->back();
         } catch (Exception $e)
         {
 
-          session()->flash('error', "User can not deleted!");
+          session()->flash('error', __('user_can_not_deleted'));
           return redirect()->back();
         }
       } else
       {
 
-			  session()->flash('error', "User can not deleted!");
+			  session()->flash('error', __('user_can_not_deleted'));
 			  return redirect()->back();
 		  }
       return redirect()->back();

@@ -24,8 +24,8 @@
 								<h1 class="text-dark mb-3">Create an Account</h1>
 								<!--end::Title-->
 								<!--begin::Link-->
-								<div class="text-gray-400 fw-bold fs-4">Already have an account?
-								<a href="{{ url('/login') }}" class="link-primary fw-bolder">Sign in here</a></div>
+								<div class="text-gray-400 fw-bold fs-4">@lang('messages.already_have_an_account')
+								<a href="{{ url('/login') }}" class="link-primary fw-bolder">@lang('messages.sign_in_here')</a></div>
 								<!--end::Link-->
 							</div>
 							<!--end::Heading-->
@@ -40,14 +40,14 @@
 							<div class="row fv-row mb-7">
 								<!--begin::Col-->
 								<div class="col-xl-6">
-									<label class="form-label fw-bolder text-dark fs-6">First Name</label>
+									<label class="form-label fw-bolder text-dark fs-6">@lang('messages.first_name')</label>
 									<input class="form-control form-control-lg form-control-solid"
 									 type="text" placeholder="" name="first_name" autocomplete="off" />
 								</div>
 								<!--end::Col-->
 								<!--begin::Col-->
 								<div class="col-xl-6">
-									<label class="form-label fw-bolder text-dark fs-6">Last Name</label>
+									<label class="form-label fw-bolder text-dark fs-6">@lang('messages.last_name')</label>
 									<input class="form-control form-control-lg form-control-solid" 
 									type="text" placeholder="" name="last_name" autocomplete="off" />
 								</div>
@@ -56,7 +56,7 @@
 							<!--end::Input group-->
 							<!--begin::Input group-->
 							<div class="fv-row mb-7">
-								<label class="form-label fw-bolder text-dark fs-6">Email</label>
+								<label class="form-label fw-bolder text-dark fs-6">@lang('messages.email')</label>
 								<input class="form-control form-control-lg form-control-solid"
 								 type="email" placeholder="" name="email" autocomplete="off" />
 							</div>
@@ -66,7 +66,7 @@
 								<!--begin::Wrapper-->
 								<div class="mb-1">
 									<!--begin::Label-->
-									<label class="form-label fw-bolder text-dark fs-6">Password</label>
+									<label class="form-label fw-bolder text-dark fs-6">@lang('messages.password')</label>
 									<!--end::Label-->
 									<!--begin::Input wrapper-->
 									<div class="position-relative mb-3">
@@ -89,13 +89,13 @@
 								</div>
 								<!--end::Wrapper-->
 								<!--begin::Hint-->
-								<div class="text-muted">Use 8 or more characters with a mix of letters, numbers &amp; symbols.</div>
+								<div class="text-muted">@lang('messages.password_info')</div>
 								<!--end::Hint-->
 							</div>
 							<!--end::Input group=-->
 							<!--begin::Input group-->
 							<div class="fv-row mb-5">
-								<label class="form-label fw-bolder text-dark fs-6">Confirm Password</label>
+								<label class="form-label fw-bolder text-dark fs-6">@lang('messages.confirm_password')</label>
 								<input class="form-control form-control-lg form-control-solid" 
 								type="password" placeholder="" name="confirm_password" autocomplete="off" />
 							</div>
@@ -104,16 +104,16 @@
 							<div class="fv-row mb-10">
 								<label class="form-check form-check-custom form-check-solid form-check-inline">
 									<input class="form-check-input" type="checkbox" name="terms_and_conditions" value="1" />
-									<span class="form-check-label fw-bold text-gray-700 fs-6">I Agree
-									<a href="#" class="ms-1 link-primary">Terms and conditions</a>.</span>
+									<span class="form-check-label fw-bold text-gray-700 fs-6">@lang('messages.i_agree')
+									<a href="#" class="ms-1 link-primary">@lang('messages.terms_and_conditions')</a>.</span>
 								</label>
 							</div>
 							<!--end::Input group-->
 							<!--begin::Actions-->
 							<div class="text-center">
 								<button type="submit" id="kt_sign_up_submit" class="btn btn-lg btn-primary">
-									<span class="indicator-label">Submit</span>
-									<span class="indicator-progress">Please wait...
+									<span class="indicator-label">@lang('messages.submit')</span>
+									<span class="indicator-progress">@lang('messages.please_wait')
 									<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
 								</button>
 							</div>

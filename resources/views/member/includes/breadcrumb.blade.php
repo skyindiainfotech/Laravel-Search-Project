@@ -1,5 +1,5 @@
 <div class="titlebar">
-	<div class="user_name"> <span>{{ Auth::guard('admins')->user()->name }}</span></div>
+	<div class="user_name"> <span>{{ Auth::guard('members')->user()->name }}</span></div>
 	
 		
 	@if(isset($bread_crumb_array) && count($bread_crumb_array) > 0)

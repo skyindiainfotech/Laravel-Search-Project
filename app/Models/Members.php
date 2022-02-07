@@ -46,6 +46,12 @@ class Members extends Authenticatable
     }
 	
 
+	/**
+     * Get List For Admin Panel.
+     *
+     * @param  array  $params - contains all filters parameters
+     * @return array  - contains data and paginators.
+     */
 	public function getAdminList($params) {
 		
 		$searchField = isset($params['search_field']) ? trim($params['search_field']) : '';

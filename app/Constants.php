@@ -6,6 +6,7 @@
 	define("SITE_TITLE"," - Search");
 	define("ADMIN_EMAIL","mayank.parmar1961@gmail.com");
 	define("SITE_URL"," https://digicians.com");
+	define("SITE_YEAR","2022");
 
 	// Tables
 	define("TBL_ADMIN_USERS", "tbl_admin_users");

@@ -20,7 +20,7 @@
 							<!--begin::Heading-->
 							<div class="text-center mb-10">
 								<!--begin::Title-->
-								<h1 class="text-dark mb-3">Reset Password</h1>
+								<h1 class="text-dark mb-3">@lang('messages.reset_password')</h1>
 								<!--end::Title-->
 							</div>
 							<!--begin::Heading-->
@@ -31,7 +31,7 @@
 								<div class="mb-1">
 									<!--begin::Label-->
 									
-									<label class="form-label fw-bolder text-dark fs-6">Password</label>
+									<label class="form-label fw-bolder text-dark fs-6"> @lang('messages.password')</label>
 									<!--end::Label-->
 									<!--begin::Input wrapper-->
 									<div class="position-relative mb-3">
@@ -53,13 +53,13 @@
 								</div>
 								<!--end::Wrapper-->
 								<!--begin::Hint-->
-								<div class="text-muted">Use 8 or more characters with a mix of letters, numbers &amp; symbols.</div>
+								<div class="text-muted">@lang('messages.password_info')</div>
 								<!--end::Hint-->
 							</div>
 							<!--end::Input group=-->
 							<!--begin::Input group=-->
 							<div class="fv-row mb-10">
-								<label class="form-label fw-bolder text-dark fs-6">Confirm Password</label>
+								<label class="form-label fw-bolder text-dark fs-6">@lang('messages.confirm_password')</label>
 								<input class="form-control form-control-lg form-control-solid" type="password" placeholder="" name="confirm_password" autocomplete="off" />
 							</div>
 							<!--end::Input group=-->
@@ -67,11 +67,11 @@
 							<!--begin::Action-->
 							<div class="text-center">
 								<button type="submit" id="kt_new_password_submit" class="btn btn-lg btn-primary fw-bolder">
-									<span class="indicator-label">Submit</span>
-									<span class="indicator-progress">Please wait...
+									<span class="indicator-label">@lang('messages.submit')</span>
+									<span class="indicator-progress">@lang('messages.please_wait')
 									<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
 								</button>
-								<a href="{{url('/member')}}" class="btn btn-lg btn-light-primary fw-bolder">Cancel</a>
+								<a href="{{url('/member')}}" class="btn btn-lg btn-light-primary fw-bolder">@lang('messages.cancel')</a>
 							</div>
 							<!--end::Action-->
 						{!! Form::close() !!}

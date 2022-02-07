@@ -42,7 +42,7 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Dashboard</span>
+                        <span class="menu-title">@lang('messages.dashboard')</span>
                     </a>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Member Management</span>
+                        <span class="menu-title">@lang('messages.member_management')</span>
                     </a>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">User Management</span>
+                        <span class="menu-title">>@lang('messages.user_management')</span>
                     </a>
                 </div>
             </div>

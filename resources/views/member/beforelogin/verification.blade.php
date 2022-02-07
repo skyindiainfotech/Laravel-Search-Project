@@ -25,11 +25,11 @@
 						<!--begin::Heading-->
 						<div class="text-center mb-10">
 							<!--begin::Title-->
-							<h1 class="text-dark mb-3">Two Step Verification</h1>
+							<h1 class="text-dark mb-3">@lang('messages.two_step_verification')</h1>
 							<!--end::Title-->
 							@if(Session::has('secured_email')) 
 								<!--begin::Sub-title-->
-								<div class="text-muted fw-bold fs-5 mb-5">Enter the verification code we sent to</div>
+								<div class="text-muted fw-bold fs-5 mb-5">@lang('messages.enter_the_verification_code_email')</div>
 								<!--end::Sub-title-->
 								<!--begin::Email -->
 								@php($email = Session::get('secured_email'))
@@ -37,7 +37,7 @@
 								<!--end::Email no-->
 							@else
 								<!--begin::Sub-title-->
-								<div class="text-muted fw-bold fs-5 mb-5">Enter the verification code below</div>
+								<div class="text-muted fw-bold fs-5 mb-5">@lang('messages.enter_the_verification_code_below')</div>
 								<!--end::Sub-title-->
 							@endif
 						</div>
@@ -45,7 +45,7 @@
 						<!--begin::Section-->
 						<div class="mb-10 px-md-10">
 							<!--begin::Label-->
-							<div class="fw-bolder text-start text-dark fs-6 mb-1 ms-1">Type your 6 digit security code</div>
+							<div class="fw-bolder text-start text-dark fs-6 mb-1 ms-1">@lang('messages.enter_6_digit_code')</div>
 							<!--end::Label-->
 							<input type="hidden" name="token_key" value="<?php echo $_GET['token'] ?? ''; ?>" />
 							<input type="hidden" name="code" class="code" value="" />
@@ -64,8 +64,8 @@
 						<!--begin::Submit-->
 						<div class="d-flex flex-center">
 							<button type="submit" id="kt_sing_in_two_steps_submit" class="btn btn-lg btn-primary fw-bolder">
-								<span class="indicator-label">Submit</span>
-								<span class="indicator-progress">Please wait...
+								<span class="indicator-label">@lang('messages.submit')</span>
+								<span class="indicator-progress">@lang('messages.please_wait')
 								<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
 							</button>
 						</div>

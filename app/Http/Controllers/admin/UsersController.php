@@ -65,8 +65,8 @@ class UsersController extends Controller
       $data['list_params'] = $list_params;
       $data['searchColumns'] = [
           'all' => 'All',
-          $this->table_name.'.id' => 'ID',
-          $this->table_name.'.username' => 'Username'
+          $this->table_name.'.id' => __('id'),
+          $this->table_name.'.username' => __('username'),
       ];
         
       $data['with_date'] = 1;
@@ -152,7 +152,7 @@ class UsersController extends Controller
       $reqArr = $request->all();
       $status = 0;
       $content = array();
-      $msg = "Something went wrong, try again or may later.";
+      $msg = __('went_wrong');
       
       $validator = Validator::make($request->all(), [
         'id' => 'required|numeric',
@@ -188,7 +188,7 @@ class UsersController extends Controller
               'email' => $userObj->email,
             );
             $status = "success";
-            $msg = "user list availble.";
+            $msg = __('user_list_avl');
           }
 
       }
@@ -221,18 +221,18 @@ class UsersController extends Controller
           CommonTrait::deleteDirectory($uploadPath);
 				  $modelObj->delete();
 
-          session()->flash('success', "User has been successfully deleted");
+          session()->flash('success', __('user_delete_success'));
           return redirect()->back();
         } catch (Exception $e)
         {
 
-          session()->flash('error', "User can not deleted!");
+          session()->flash('error', __('user_can_not_deleted'));
           return redirect()->back();
         }
       } else
       {
 
-			  session()->flash('error', "User can not deleted!");
+			  session()->flash('error', __('user_can_not_deleted'));
 			  return redirect()->back();
 		  }
       return redirect()->back();

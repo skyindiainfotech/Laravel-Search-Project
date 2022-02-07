@@ -177,7 +177,7 @@ $delete_url = '/admin-users';
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-3">
-                                            {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $row->id],'onsubmit' => 'return confirm("Are you sure?")']) !!}
+                                            {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $row->id],'onsubmit' => 'return confirm("{{ __('are_you_sure') }}")']) !!}
 
                                             <button type="submit" class="btn-delete-custom menu-link px-3" >@lang('messages.delete')</button>
 

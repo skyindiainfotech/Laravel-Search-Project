@@ -3,7 +3,7 @@
     <!--begin::Brand-->
     <div class="aside-logo flex-column-auto" id="kt_aside_logo">
         <!--begin::Logo-->
-        <a href="index.html">
+        <a href="{{url('/')}}">
             <img alt="Logo" src="{{ asset('/themes/') }}/member/media/logos/logo-1.svg" class="h-15px logo" />
         </a>
         <!--end::Logo-->
@@ -42,7 +42,7 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Member Dashboard</span>
+                        <span class="menu-title">@lang('messages.member_dashboard')</span>
                     </a>
                 </div>
                 <div class="menu-item">
@@ -60,7 +60,7 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">User Management</span>
+                        <span class="menu-title">@lang('messages.user_management')</span>
                     </a>
                 </div>
             </div>

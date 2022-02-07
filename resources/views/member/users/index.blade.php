@@ -13,7 +13,7 @@ $delete_url = '/users';
                 <!--begin::Page title-->
                 <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3">
                     <!--begin::Title-->
-                    <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Users Management</h1>
+                    <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">@lang('messages.user_management')</h1>
                     <!--end::Title-->
                     <!--begin::Separator-->
                     <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -46,7 +46,7 @@ $delete_url = '/users';
                                         <rect fill="#000000" opacity="0.5" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000)" x="4" y="11" width="16" height="2" rx="1" />
                                     </svg>
                                 </span>
-                                <!--end::Svg Icon-->Add User</button>
+                                <!--end::Svg Icon-->@lang('messages.add_user')</button>
                                 <!--end::Add user-->
                             </div>
                             <!--end::Toolbar-->
@@ -61,7 +61,7 @@ $delete_url = '/users';
                                         <!--begin::Modal header-->
                                         <div class="modal-header" id="kt_modal_add_user_header">
                                             <!--begin::Modal title-->
-                                            <h2 class="fw-bolder">Add User</h2>
+                                            <h2 class="fw-bolder">@lang('messages.add_user')</h2>
                                             <!--end::Modal title-->
                                             
                                         </div>
@@ -76,30 +76,30 @@ $delete_url = '/users';
                                                     <!--begin::Input group-->
                                                     <div class="fv-row mb-7">
                                                         <!--begin::Label-->
-                                                        <label class="required fw-bold fs-6 mb-2">Username</label>
+                                                        <label class="required fw-bold fs-6 mb-2">@lang('messages.username')</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="text" name="username" id="username" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Username" value="" />
+                                                        <input type="text" name="username" id="username" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="@lang('messages.username')" value="" />
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
                                                     <!--begin::Input group-->
                                                     <div class="fv-row mb-7">
                                                         <!--begin::Label-->
-                                                        <label class="required fw-bold fs-6 mb-2">Password</label>
+                                                        <label class="required fw-bold fs-6 mb-2">@lang('messages.password')</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="text" name="password" id="password" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Password" value="" />
+                                                        <input type="text" name="password" id="password" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="@lang('messages.password')" value="" />
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
                                                      <!--begin::Input group-->
                                                      <div class="fv-row mb-7">
                                                         <!--begin::Label-->
-                                                        <label class="required fw-bold fs-6 mb-2">File (upload a .xls, .xlsx file only)</label>
+                                                        <label class="required fw-bold fs-6 mb-2">@lang('messages.file') @lang('messages.file_to_upload')</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="file" name="file" accept=".xls, .xlsx" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="excel file" value="" />
+                                                        <input type="file" name="file" accept=".xls, .xlsx" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="@lang('messages.file')" value="" />
                                                         <!--end::Input-->
                                                     </div>
                                                     <div class="display-file"></div>
@@ -109,10 +109,10 @@ $delete_url = '/users';
                                                 <!--end::Scroll-->
                                                 <!--begin::Actions-->
                                                 <div class="text-center pt-15">
-                                                    <button type="button" class="btn btn-white me-3 discard" data-modelname="kt_modal_add_user" >Discard</button>
+                                                    <button type="button" class="btn btn-white me-3 discard" data-modelname="kt_modal_add_user" >@lang('messages.discard')</button>
                                                     <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-                                                        <span class="indicator-label">Submit</span>
-                                                        <span class="indicator-progress">Please wait...
+                                                        <span class="indicator-label">@lang('messages.submit')</span>
+                                                        <span class="indicator-progress">@lang('messages.please_wait')
                                                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                                     </button>
                                                 </div>
@@ -139,11 +139,11 @@ $delete_url = '/users';
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th class="min-w-125px">Sr.no.</th>
-                                    <th class="min-w-125px">Username</th>
-                                    <th class="min-w-125px">File</th>
-                                    <th class="min-w-125px">Last Updated Date</th>
-                                    <th class="text-end min-w-100px">Actions</th>
+                                    <th class="min-w-125px">@lang('messages.sr_no')</th>
+                                    <th class="min-w-125px">@lang('messages.username')</th>
+                                    <th class="min-w-125px">@lang('messages.file')</th>
+                                    <th class="min-w-125px">@lang('messages.last_updated_date')</th>
+                                    <th class="text-end min-w-100px">@lang('messages.actions')</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -181,7 +181,7 @@ $delete_url = '/users';
 
                                     <!--begin::Action=-->
                                     <td class="text-end">
-                                        <a href="javascript:void(0)" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">Actions
+                                        <a href="javascript:void(0)" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">@lang('messages.actions')
                                         <!--begin::Svg Icon | path: icons/duotone/Navigation/Angle-down.svg-->
                                         <span class="svg-icon svg-icon-5 m-0">
                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -197,14 +197,14 @@ $delete_url = '/users';
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-3 edit-row"  data-id="{{ $row->id ?? '' }}">
                                                 <a  
-                                                 class="menu-link px-3">Edit</a>
+                                                 class="menu-link px-3">@lang('messages.edit')</a>
                                             </div>
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-3">
-                                            {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $row->id],'onsubmit' => 'return confirm("Are you sure?")']) !!}
+                                            {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $row->id],'onsubmit' => 'return confirm("{{ __('are_you_sure') }}")']) !!}
 
-                                            <button type="submit" class="btn-delete-custom menu-link px-3" >Delete</button>
+                                            <button type="submit" class="btn-delete-custom menu-link px-3" >@lang('messages.delete')</button>
 
                                             {!! Form::close() !!}
                                                 
@@ -219,7 +219,7 @@ $delete_url = '/users';
                                 @endforeach         
                             @else
                                 <tr>
-                                    <td colspan="4">No Records Found.</td>
+                                    <td colspan="4">@lang('messages.no_record_found')</td>
                                 </tr>                    
                             @endif
                             </tbody>
