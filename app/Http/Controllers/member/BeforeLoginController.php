@@ -30,7 +30,7 @@ class BeforeLoginController extends Controller
     public function index(){
 
         $data = array(); 
-        $data['pageTitle'] =  __('home');
+        $data['pageTitle'] =  __('messages.home');
         return view('member.landing',$data);
     }
 
@@ -43,7 +43,7 @@ class BeforeLoginController extends Controller
     public function login(){
 
         $data = array(); 
-        $data['pageTitle'] = __('sign_in');
+        $data['pageTitle'] = __('messages.sign_in');
         return view('member.beforelogin.login',$data);
     }
 
@@ -55,7 +55,7 @@ class BeforeLoginController extends Controller
     public function signUp(){
 
         $data = array(); 
-        $data['pageTitle'] =  __('sign_up');
+        $data['pageTitle'] =  __('messages.sign_up');
         return view('member.beforelogin.sign-up',$data);
     }
 
@@ -68,7 +68,7 @@ class BeforeLoginController extends Controller
     public function forgotPassword(){
 
         $data = array(); 
-        $data['pageTitle'] = __('forgot_password');
+        $data['pageTitle'] = __('messages.forgot_password');
         return view('member.beforelogin.forgot-password',$data);
     }
 
@@ -81,13 +81,13 @@ class BeforeLoginController extends Controller
     public function resetPassword($token){
 
         $data = array(); 
-        $data['pageTitle'] = __('reset_password');
+        $data['pageTitle'] = __('messages.reset_password');
         $memberObj = Members::where('token_key',$token)->first();
         if(isset($memberObj->id) && $memberObj->id > 0){
             $data['token'] = $token;
             return view('member.beforelogin.reset-password',$data);
         }else{
-            session()->flash('error', __('token_expired') );
+            session()->flash('error', __('messages.token_expired') );
             return redirect(url('/login'));
         }
     }
@@ -101,7 +101,7 @@ class BeforeLoginController extends Controller
     public function processResetPassword(Request $request){
 
         $status = 0;
-        $msg = __('went_wrong');
+        $msg = __('messages.went_wrong');
         $redirctUrl = redirect()->back();
 
         $requestArr = $request->all();
@@ -124,12 +124,12 @@ class BeforeLoginController extends Controller
                 $memberObj->password = bcrypt($requestArr['password']);
                 $memberObj->save();
                 $status = 1;
-                $msg = __('password_reset_success');
+                $msg = __('messages.password_reset_success');
                 $redirctUrl = redirect(url('/login'));
             }
             else{
                 $status = 0;
-                $msg = __('token_expired');
+                $msg = __('messages.token_expired');
             }
         }
 
@@ -146,7 +146,7 @@ class BeforeLoginController extends Controller
     public function processForgotPassword(Request $request){
             
         $status = 0;
-        $msg = __('went_wrong');
+        $msg = __('messages.went_wrong');
         $redirctUrl = redirect()->back();
 
         $requestArr = $request->all();
@@ -184,7 +184,7 @@ class BeforeLoginController extends Controller
                 $memberObj->save();
                 
                 $status = 1;
-                $msg = __('reset_link_on_mail');
+                $msg = __('messages.reset_link_on_mail');
                 $redirctUrl = redirect('/login');
             }
         }
@@ -201,7 +201,7 @@ class BeforeLoginController extends Controller
     public function verificationPage(){
 
         $data = array(); 
-        $data['pageTitle'] = __('2_step_verification');
+        $data['pageTitle'] = __('messages.2_step_verification');
         return view('member.beforelogin.verification',$data);
     }
 
@@ -215,7 +215,7 @@ class BeforeLoginController extends Controller
 
         $data = array(); 
         $status = 0;
-        $msg = __('went_wrong');
+        $msg = __('messages.went_wrong');
         $redirctUrl = redirect()->back();
 
         $requestArr = $request->all();
@@ -241,11 +241,11 @@ class BeforeLoginController extends Controller
                 $memObj->otp = '';
                 $memObj->save();
                 $status = 1;
-                $msg = __('verified_account');
+                $msg = __('messages.verified_account');
                 $redirctUrl = redirect(url('/login'));
             }else{
                 $status = 0;
-                $msg = __('invalid_details_provided');
+                $msg = __('messages.invalid_details_provided');
             }
         }
 
@@ -317,12 +317,12 @@ class BeforeLoginController extends Controller
                 $obj->save();
                 
                 session()->flash('secured_email', $requestArr['email']);
-                session()->flash('success', __('registration_success'));
+                session()->flash('success', __('messages.registration_success'));
                 return redirect($url);
             }
         }
 
-        session()->flash('error', __('went_wrong'));
+        session()->flash('error', __('messages.went_wrong'));
         return redirect(url('/sign-up'));
     }
 
@@ -356,18 +356,18 @@ class BeforeLoginController extends Controller
                 $user = Auth::guard('members')->user();
                 if($user->status == 1){
                     Auth::guard('members')->logout();
-                    session()->flash('error', __('account_is_not_active'));
+                    session()->flash('error', __('messages.account_is_not_active'));
                     return redirect(url('/login'));
                 }
 
                // session()->flash('success', 'Login Successfully.');        
                 return redirect(url('/member/dashboard'));
             }else{
-                session()->flash('error', __('invalid_login_details')); 
+                session()->flash('error', __('messages.invalid_login_details')); 
                 return redirect(url('/login'));
             }            
          }
-        session()->flash('error', __('went_wrong')); 
+        session()->flash('error', __('messages.went_wrong')); 
         return redirect(url('/login'));
      }
    
@@ -380,7 +380,7 @@ class BeforeLoginController extends Controller
     public function changePassword(){
 
         $data = array(); 
-        $data['pageTitle'] =  __('change_password');
+        $data['pageTitle'] =  __('messages.change_password');
         return view('member.beforelogin.change-password',$data);
     }
 
@@ -394,7 +394,7 @@ class BeforeLoginController extends Controller
 
         if(Auth::guard('members')->user()){
             $status = 0;
-            $msg = __('went_wrong');
+            $msg = __('messages.went_wrong');
             $redirctUrl = redirect()->back();
 
             $requestArr = $request->all();
@@ -424,7 +424,7 @@ class BeforeLoginController extends Controller
             session()->flash($status == 1 ? 'success' : 'error', $msg );
             return $redirctUrl;
         }else{
-            session()->flash('error', __('went_wrong')); 
+            session()->flash('error', __('messages.went_wrong')); 
             return redirect(url('/login'));
         }
     }

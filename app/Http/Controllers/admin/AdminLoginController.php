@@ -45,8 +45,8 @@ class AdminLoginController extends Controller
     public function __construct(){
 
         $this->middleware('guest_admin', ['except' => 'getLogout']);
-        $this->badRequestMsg = __('bad_request');
-        $this->successEmailSentMsg = __('email_sent_successfully');
+        $this->badRequestMsg = __('messages.bad_request');
+        $this->successEmailSentMsg = __('messages.email_sent_successfully');
         $this->responseData = array();
         $this->responseData['data'] = array();
         $this->responseData['status'] = 0;
@@ -62,7 +62,7 @@ class AdminLoginController extends Controller
     public function getLogin(){
 
         $data = array();
-        $data['pageTitle'] = __('login');
+        $data['pageTitle'] = __('messages.login');
         return view('admin.login', $data);
     }
     
@@ -75,7 +75,7 @@ class AdminLoginController extends Controller
     public function postLogin(Request $request){
 
         $status = 0;
-        $msg = __('credential_doesnt_match');
+        $msg = __('messages.credential_doesnt_match');
         
         $validator = Validator::make($request->all(), [
             'email' => 'required|email', 
@@ -99,12 +99,12 @@ class AdminLoginController extends Controller
                 if($user->status != 1){
                     Auth::guard('admins')->logout();
                     return redirect(url($this->loginPath))
-                    ->withErrors(['error' =>  __('account_not_active')])
+                    ->withErrors(['error' =>  __('messages.account_not_active')])
                     ->withInput();
                 }
 
                 $status = 1;
-                $msg =  __('login_success');
+                $msg =  __('messages.login_success');
                 $user->last_login_at = \Carbon\Carbon::now();
                 $user->save();                            
                 return redirect(url($this->redirectPath));
@@ -112,7 +112,7 @@ class AdminLoginController extends Controller
             }else{
 
                 return redirect(url($this->loginPath))
-                    ->withErrors(['error' => __('invalid_login_details')])
+                    ->withErrors(['error' => __('messages.invalid_login_details')])
                     ->withInput();
             }            
         }

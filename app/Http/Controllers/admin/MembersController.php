@@ -65,13 +65,13 @@ class MembersController extends Controller
       $data['searchColumns'] = [
           'all' => 'All',
           $this->table_name.'.id' => 'ID',
-          $this->table_name.'.first_name' => __('first_name'),
-          $this->table_name.'.last_name' => __('last_name'),
-          $this->table_name.'.email' => __('email'),
+          $this->table_name.'.first_name' => __('messages.first_name'),
+          $this->table_name.'.last_name' => __('messages.last_name'),
+          $this->table_name.'.email' => __('messages.email'),
       ];
         
       $data['with_date'] = 1;
-      $data['pageTitle'] = __('members'); 
+      $data['pageTitle'] = __('messages.members'); 
       return view($this->view_base . '.index', $data);
     }
 
@@ -152,7 +152,7 @@ class MembersController extends Controller
       $reqArr = $request->all();
       $status = 0;
       $content = array();
-      $msg = __('went_wrong');
+      $msg = __('messages.went_wrong');
       
       $validator = Validator::make($request->all(), [
         'id' => 'required|numeric',
@@ -180,7 +180,7 @@ class MembersController extends Controller
               'updated_at' => $memberObj->updated_at,
             );
             $status = "success";
-            $msg = __('member_list_availble');
+            $msg = __('messages.member_list_availble');
           }
 
       }
@@ -202,19 +202,19 @@ class MembersController extends Controller
     public function changeStatus($id)
     {
       $status = 0;
-      $msg = __('went_wrong');
+      $msg = __('messages.went_wrong');
 
       if(isset($id) && $id > 0){
         $memberObj = Members::where('id',$id)->first();
 
         $status = 0;
-        $msg = __('user_not_found');
+        $msg = __('messages.user_not_found');
         if(isset($memberObj->id)){
           $memberObj->status = $memberObj->status == '0' ? '1' : '0';
           $memberObj->save();
 
           $status = 1;
-          $msg = __('user_status_changed');
+          $msg = __('messages.user_status_changed');
         }
       }
       session()->flash($status == 1 ? 'success' : 'error', $msg );

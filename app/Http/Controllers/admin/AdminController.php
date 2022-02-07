@@ -32,7 +32,7 @@ class AdminController extends Controller
     public function index(){
 
         $data = array(); 
-        $data['pageTitle'] = __('dashboard');
+        $data['pageTitle'] = __('messages.dashboard');
         return view('admin.dashboard',$data);
     }    
     

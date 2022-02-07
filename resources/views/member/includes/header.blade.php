@@ -70,7 +70,7 @@
 														<!--end::Avatar-->
 														<!--begin::Username-->
 														<div class="d-flex flex-column">
-															<div class="fw-bolder d-flex align-items-center fs-5">{{ Auth::guard('members')->user()->name }}
+															<div class="fw-bolder d-flex align-items-center fs-5">{{ Auth::guard('members')->user()->first_name	 }}
 															
                                                         </div>
 															<a href="#" class="fw-bold text-muted text-hover-primary fs-7">{{ Auth::guard('members')->user()->email }}</a>
@@ -89,7 +89,7 @@
 												<!--end::Menu item-->
 												<!--begin::Menu item-->
 												<div class="menu-item px-5">
-													<a href="{{url('member/logout')}}" class="menu-link px-5">@lang('messages.sign_out')</a>
+													<a href="{{url('member/logout')}}" class="menu-link px-5">@lang('messages.change_passsign_outword')</a>
 												</div>
 												<!--end::Menu item-->
 											</div>

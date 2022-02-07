@@ -65,8 +65,8 @@ class UsersController extends Controller
       $data['list_params'] = $list_params;
       $data['searchColumns'] = [
           'all' => 'All',
-          $this->table_name.'.id' => __('id'),
-          $this->table_name.'.username' => __('username'),
+          $this->table_name.'.id' => __('messages.id'),
+          $this->table_name.'.username' => __('messages.username'),
       ];
         
       $data['with_date'] = 1;
@@ -152,7 +152,7 @@ class UsersController extends Controller
       $reqArr = $request->all();
       $status = 0;
       $content = array();
-      $msg = __('went_wrong');
+      $msg = __('messages.went_wrong');
       
       $validator = Validator::make($request->all(), [
         'id' => 'required|numeric',
@@ -188,7 +188,7 @@ class UsersController extends Controller
               'email' => $userObj->email,
             );
             $status = "success";
-            $msg = __('user_list_avl');
+            $msg = __('messages.user_list_avl');
           }
 
       }
@@ -221,18 +221,18 @@ class UsersController extends Controller
           CommonTrait::deleteDirectory($uploadPath);
 				  $modelObj->delete();
 
-          session()->flash('success', __('user_delete_success'));
+          session()->flash('success', __('messages.user_delete_success'));
           return redirect()->back();
         } catch (Exception $e)
         {
 
-          session()->flash('error', __('user_can_not_deleted'));
+          session()->flash('error', __('messages.user_can_not_deleted'));
           return redirect()->back();
         }
       } else
       {
 
-			  session()->flash('error', __('user_can_not_deleted'));
+			  session()->flash('error', __('messages.user_can_not_deleted'));
 			  return redirect()->back();
 		  }
       return redirect()->back();

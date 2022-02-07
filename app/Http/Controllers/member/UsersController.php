@@ -58,7 +58,7 @@ class UsersController extends Controller
         'sort_by' => $request->get('sortBy'),
         'sort_order' => $request->get('sortOrd'),
         'record_per_page' => env('APP_RECORDS_PER_PAGE', 20),
-        'member_id' => $memberObj->id
+        'member_id' => $memberObj->id ?? ''
       );
 
       $rows = $this->modelObj->getMemberList($list_params);
@@ -67,12 +67,12 @@ class UsersController extends Controller
       $data['list_params'] = $list_params;
       $data['searchColumns'] = [
           'all' => 'All',
-          $this->table_name.'.id' => __('id'),
-          $this->table_name.'.username' => __('username'),
+          $this->table_name.'.id' => __('messages.id'),
+          $this->table_name.'.username' => __('messages.username'),
       ];
         
       $data['with_date'] = 1;
-      $data['pageTitle'] = __('users'); 
+      $data['pageTitle'] = __('messages.users'); 
   
       return view($this->view_base . '.index', $data);
     }
@@ -99,15 +99,31 @@ class UsersController extends Controller
     public function store(Request $request)
     {
       $status = 0;
-      $msg = __('went_wrong');
+      $msg = __('messages.went_wrong');
       $redirctUrl = redirect()->back();
-
       $requestArr = $request->all();
-      $validator = Validator::make($request->all(), [
-        'username' => 'required|alpha_num|min:2|max:20|unique:' . $this->table_name,
+      $isEdit = false;
+      if(isset($requestArr['user_id']) && $requestArr['user_id'] != ''){
+        $isEdit = true;
+      }
+      
+      $validator = NULL;
+      $rules = array(
         'password' => 'required|min:2|max:15',
         'file' => 'nullable|mimes:xls,xlsx'
-      ]);
+      );
+
+      if($isEdit){
+        $rules = array_merge($rules,array(
+          'username' => 'required|alpha_num|min:2|max:20|unique:' . $this->table_name.',username,'.$requestArr['user_id'],
+        ));
+      }else{
+        $rules = array_merge($rules,array(
+          'username' => 'required|alpha_num|min:2|max:20|unique:' . $this->table_name,
+        ));
+      }
+
+      $validator = Validator::make($request->all(), $rules);
 
       if($validator->fails())
       {
@@ -116,15 +132,14 @@ class UsersController extends Controller
       } else {
 
 
-        $isEdit = false;
+        
         $memberObj = Auth::guard('members')->user();
         $obj = NULL;
-        if(isset($requestArr['user_id']) && $requestArr['user_id'] != ''){
+        if($isEdit){
           $obj = Users::where('id',$requestArr['user_id'])->first();
           $obj->username = $requestArr['username'] ?? '';
           $obj->password = $requestArr['password'] ?? '';
           $obj->save();
-          $isEdit = true;
         }else{
           $insertArr = array(
             'username' => $requestArr['username'],
@@ -139,7 +154,7 @@ class UsersController extends Controller
         if(isset($obj->id) && $obj->id > 0){
           
           $status = 1;
-          $msg = __('user_details_uploaded');
+          $msg = __('messages.user_details_uploaded');
 
           if($request->hasFile('file')) 
           {
@@ -159,7 +174,7 @@ class UsersController extends Controller
             $obj->save();                
 
             $status = 1;
-            $msg = __('user_details_and_file_uploaded');
+            $msg = __('messages.user_details_and_file_uploaded');
             $redirctUrl = redirect($this->list_url);
           }
         }
@@ -180,7 +195,7 @@ class UsersController extends Controller
       $reqArr = $request->all();
       $status = 0;
       $content = array();
-      $msg = __('went_wrong');
+      $msg = __('messages.went_wrong');
       
       $validator = Validator::make($request->all(), [
         'id' => 'required|numeric',
@@ -213,11 +228,11 @@ class UsersController extends Controller
               'member_id' => $memberObj->id,
             );
             $status = "success";
-            $msg = __('user_list_avl');
+            $msg = __('messages.user_list_avl');
 
           }else{
             $status = "error";
-            $msg = __('please_login_again');
+            $msg = __('messages.please_login_again');
             $this->responseData['slug'] = 'logout';
           }
       }
@@ -290,18 +305,18 @@ class UsersController extends Controller
           CommonTrait::deleteDirectory($uploadPath);
 				  $modelObj->delete();
 
-          session()->flash('success', __('user_delete_success'));
+          session()->flash('success', __('messages.user_delete_success'));
           return redirect()->back();
         } catch (Exception $e)
         {
 
-          session()->flash('error', __('user_can_not_deleted'));
+          session()->flash('error', __('messages.user_can_not_deleted'));
           return redirect()->back();
         }
       } else
       {
 
-			  session()->flash('error', __('user_can_not_deleted'));
+			  session()->flash('error', __('messages.user_can_not_deleted'));
 			  return redirect()->back();
 		  }
       return redirect()->back();

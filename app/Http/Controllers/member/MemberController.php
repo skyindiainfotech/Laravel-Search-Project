@@ -30,7 +30,7 @@ class MemberController extends Controller
     public function index(){
 
         $data = array(); 
-        $data['pageTitle'] =  __('home');
+        $data['pageTitle'] =  __('messages.home');
         return view('member.dashboard',$data);
     }
 
